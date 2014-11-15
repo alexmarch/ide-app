@@ -17,7 +17,7 @@ exports.projects = {
 		c9ideService = new C9ideService(c9ideOptions);
 
 		c9ideService.run(function(data){
-			debug('Running c9ide...',data);
+			debug('Running c9ide...',data.toString());
 		});
 
 		// proxyService = req.app.get('proxyService');
