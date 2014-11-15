@@ -97,23 +97,23 @@ db.init();
 * Create reverse proxy
 **/
 var server = http.createServer(function(req, res){
-	debug("parse:", req.headers.cookie);
+	// debug("parse:", req.headers.cookie);
 	var cookies, sid;
 	if(req.headers.cookie){
 		cookies = cookie.parse(req.headers.cookie);
 		sid = cookies['connect.sid'];
-		debug(sid);
+		// debug(sid);
 		if(sid){
 			sid = sid.substr(2).split('.')[0];
 			debug(sid);
 			sessionStore.get(sid, function(err, sess){
+				debug("Session:", sess);
 				if(err){
 					return debug("Get session error", err);
 				};
-				debug("Session:",sess);
 				var parseUrl = url.parse(req.url);
 				parseUrl = parseUrl.pathname.split('/');
-				debug(parseUrl,parseUrl[1], sess);
+				// debug(parseUrl,parseUrl[1], sess);
 				if( parseUrl[1] === sess.userid ){
 					debug("proxy to project");
 					proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
