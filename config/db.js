@@ -8,9 +8,9 @@ var mysql = require('mysql')
 var db = {
 	dev: {
 		host: 'localhost',
-		user: 'naomay_c9',
-		password: '!unlock123!',
-		database: 'naomay_c9',
+		user: process.env.USER || 'root',
+		password: process.env.PASSWD || '',
+		database: process.env.DBNAME || '',
 		connectTimeout: 4000
 	},
 	prod: {
