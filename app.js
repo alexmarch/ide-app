@@ -105,7 +105,7 @@ var server = http.createServer(function(req, res){
 				if(err){
 					return debug("Get session error", err);
 				};
-				debug(sess);
+				debug("Session:",sess);
 			});
 		}
 	};
