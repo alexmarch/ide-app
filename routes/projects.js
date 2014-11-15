@@ -13,6 +13,8 @@ exports.projects = {
 			return res.redirect('/');
 		};
 
+		debug("Run editor...");
+
 		var proxy = req.app.get('proxy');
 
 		proxy.web(req, res, { target: "http://192.163.201.155:3131" });
