@@ -13,10 +13,10 @@ ProxyService = require('./api/services/proxyService'),
 proxy = new ProxyService({port: process.env.PROXY_PORT});
 
 app.set('port', process.env.PORT || 3000);
-app.set('host', process.env.HOST || 'localhost')
+app.set('host', process.env.HOST || 'localhost');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('proxy', proxy);
+// app.set('proxy', proxy);
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
