@@ -100,14 +100,14 @@ var server = http.createServer(function(req, res){
 		// debug(sid);
 		if(sid){
 			sid = sid.substr(2).split('.')[0];
-			// debug(sid);
+			debug(sid);
 			sessionStore.get(sid, function(err, sess){
 				if(err){
 					return debug("Get session error", err);
 				};
 				// debug("Session:",sess);
 				var parseUrl = url.parse(req.url);
-				parseUrl = url.pathname.split('/');
+				parseUrl = parseUrl.pathname.split('/');
 				debug(parseUrl);
 				if( parseUrl[1] === sess.userid ){
 					debug("proxy to project");
