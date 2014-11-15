@@ -20,13 +20,13 @@ exports.projects = {
 			debug('Running c9ide...',data.toString());
 		});
 
-		// proxyService = req.app.get('proxyService');
+		proxyService = req.app.get('proxyService');
 
-		// proxyService.proxy.web(req, res, { target: "http://192.163.201.155:3131" });
+		proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
 		
-		// proxyService.proxy.on('error', function(err){
-		// 	console.log(err);
-		// });
+		proxyService.proxy.on('error', function(err){
+			console.log(err);
+		});
 		
 		next();
 		// if(req.session.ide || fs.readdirSync(path).length >= 3){
