@@ -78,7 +78,7 @@ debug('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port);
 
 app.use('/smith.io-ide', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
-  	debug(req.originalUrl, req.query, req);
+  	debug(req.originalUrl, req.query);
     return req.originalUrl;
   }
 }));
