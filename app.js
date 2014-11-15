@@ -107,7 +107,7 @@ var server = http.createServer(function(req, res){
 			sid = sid.substr(2).split('.')[0];
 			debug(sid);
 			sessionStore.get(sid, function(err, sess){
-				debug("Session:", sess);
+				debug("Session:", sess.user.userid);
 				if(err){
 					return debug("Get session error", err);
 				};
