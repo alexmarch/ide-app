@@ -82,7 +82,7 @@ app.use('/static', proxy('http://192.163.201.155:3131', {
 }));
 app.use('/test/project', proxy('http://192.163.201.155:3131', {
   forwardPath: function(req, res) {
-  	console.log(require('url').parse(req.url));
+  	console.log(require('url').parse(req.url).path);
     return require('url').parse(req.url).path;
   }
 }));
