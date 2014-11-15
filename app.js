@@ -105,14 +105,16 @@ var server = http.createServer(function(req, res){
 				if(err){
 					return debug("Get session error", err);
 				};
-				debug("Session:",sess);
+				// debug("Session:",sess);
 				var purl = url.parse(req.url);
 				if( purl.pathname === '/test/project'){
+					debug("proxy to project");
 					proxyService.proxy.web(req, res, { target: "http://localhost:3131" });
 				};
 			});
 		}
 	};
+	debug("proxy to site");
 	proxyService.proxy.web(req, res, options);
 });
 
