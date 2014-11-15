@@ -23,7 +23,7 @@ proxyService = new ProxyService({},{port: process.env.PROXY_PORT});
 // proxyService, c9ideService;
 
 app.set('port', process.env.PORT || 3000);
-app.set('host', process.env.HOST || 'localhost');
+app.set('host', process.env.APP_HOST || 'localhost');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('proxyService', proxyService);
