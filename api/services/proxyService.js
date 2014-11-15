@@ -1,11 +1,12 @@
-var options = require('../../config/proxy'),
+
 debug = require('debug')('proxy'),
 httpProxy = require('http-proxy');
 
-function ProxyService(opt){
-	opt = opt || {};
-	debug("Proxy options:",opt, "port:", opt.port || 8080, "proxy path options:", options);
-	this.proxy = httpProxy.createProxyServer(options).listen(opt.port || 8080);
+function ProxyService(options, server_opts){
+	server_opts = server_opts || {};
+	options = options || {};
+	debug("Proxy options:",server_opts, "port:", server_opts.port || 8080, "proxy path options:", options);
+	this.proxy = httpProxy.createProxyServer(options).listen(server_opts.port || 8080);
 	this.proxy.on("error", this.error);
 };
 

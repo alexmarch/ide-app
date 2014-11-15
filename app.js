@@ -9,8 +9,9 @@ var appRoutes = require('./config/routes')(app, handler);
 var debug = require('debug')('app');
 //var MongoStore = require('connect-mongo')(express);
 var MySQLStore = require('connect-mysql')(express),
-ProxyService = require('./api/services/proxyService');
-//proxy = new ProxyService({port: process.env.PROXY_PORT});
+ProxyService = require('./api/services/proxyService'),
+options = require('./config/proxy'),
+proxy = new ProxyService(options,{port: process.env.PROXY_PORT});
 
 app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.HOST || 'localhost');
@@ -54,5 +55,5 @@ if ('development' == app.get('env')) {
 db.init();
 
 http.createServer(app).listen(app.get('port'), app.get('host'), function () {
-	debug("App server start on port:[" + app.get('port') + " ], host:[" + app.get('host') + "]");
+	debug("App server start on port:[" + app.get('port') + "], host:[" + app.get('host') + "]");
 });
