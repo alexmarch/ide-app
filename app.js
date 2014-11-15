@@ -110,10 +110,10 @@ var server = http.createServer(function(req, res){
 				if(err){
 					return debug("Get session error", err);
 				};
-				// debug("Session:",sess);
+				debug("Session:",sess);
 				var parseUrl = url.parse(req.url);
 				parseUrl = parseUrl.pathname.split('/');
-				debug(parseUrl,parseUrl[1], sess.userid);
+				debug(parseUrl,parseUrl[1], sess);
 				if( parseUrl[1] === sess.userid ){
 					debug("proxy to project");
 					proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
