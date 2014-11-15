@@ -18,9 +18,14 @@ ProxyService = require('./api/services/proxyService'),
 options = require('./config/proxy'),
 proxyService = new ProxyService({},{port: process.env.PROXY_PORT});
 
-// c9ideOptions = require('./config/c9ide'),
-// C9ideService = require('./api/services/c9ideService'), 
-// proxyService, c9ideService;
+c9ideOptions = require('./config/c9ide'),
+C9ideService = require('./api/services/c9ideService'), 
+proxyService, c9ideService;
+
+c9ideService = new C9ideService(c9ideOptions);
+c9ideService.run(function(data){
+		debug('Running c9ide...',data.toString());
+});
 
 app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.APP_HOST || 'localhost');
@@ -111,7 +116,7 @@ var server = http.createServer(function(req, res){
 				debug(parseUrl);
 				if( parseUrl[1] === sess.userid ){
 					debug("proxy to project");
-					proxyService.proxy.web(req, res, { target: "http://localhost:3131" });
+					proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
 				};
 			});
 		}
