@@ -50,7 +50,7 @@ app.use('/:userid/:project',function(req, res, next){
 		if(!req.session.user || req.params.userid !== req.session.user.userid) {
 			return next();
 		};
-
+		console.log("dadasdasdada>>>>");
 		debug("Run editor...", req.app.get('proxyService'));
 
 		c9ideService = new C9ideService(c9ideOptions);
