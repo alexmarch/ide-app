@@ -92,7 +92,7 @@ db.init();
 * Create reverse proxy
 **/
 var server = http.createServer(function(req, res){
-	debug("parse:",url.parse(req.url));
+	debug("parse:",);
 	var cookies, sid;
 	if(req.headers.cookie){
 		cookies = cookie.parse(req.headers.cookie);
@@ -106,6 +106,10 @@ var server = http.createServer(function(req, res){
 					return debug("Get session error", err);
 				};
 				debug("Session:",sess);
+				var purl = url.parse(req.url);
+				if( purl.pathname === '/test/project'){
+					proxyService.proxy.web(req, res, { target: "http://localhost:3131" });
+				};
 			});
 		}
 	};
