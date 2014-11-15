@@ -89,7 +89,7 @@ if ('development' == app.get('env')) {
 db.init();
 
 var server = http.createServer(function(req, res){
-	debug(req.url);
+	debug("url:",req.url,"parse:",url.parse(req.url));
 	proxyService.proxy.web(req, res, options);
 });
 
