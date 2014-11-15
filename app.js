@@ -74,18 +74,18 @@ app.use(helpers(app));
 // 			console.log(err);
 // 		});
 // });
-app.use('/static', proxy('http://192.163.201.155:3131', {
+
+app.use('/static', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
-  	console.log("Path:", req.originalUrl);
-    return '/static' + require('url').parse(req.url).path;
+    return req.originalUrl
   }
 }));
-app.use('/test/project', proxy('http://192.163.201.155:3131', {
+app.use('/test/project', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
-  	console.log("Project Path:",require('url').parse(req.url).path);
     return require('url').parse(req.url).path;
   }
 }));
+
 app.use(app.router);
 
 app.use(function (req, res, next) {
@@ -104,43 +104,6 @@ if ('development' == app.get('env')) {
 }
 
 db.init();
-
-/**
-* Create reverse proxy
-**/
-var server = http.createServer(function(req, res){
-	// debug("parse:", req.headers.cookie);
-	// var cookies, sid;
-	// if(req.headers.cookie){
-	// 	cookies = cookie.parse(req.headers.cookie);
-	// 	sid = cookies['connect.sid'];
-	// 	// debug(sid);
-	// 	if(sid){
-	// 		sid = sid.substr(2).split('.')[0];
-	// 		debug(sid);
-	// 		sessionStore.get(sid, function(err, sess){
-	// 			debug("Session:", sess.user.userid);
-	// 			if(err){
-	// 				return debug("Get session error", err);
-	// 			};
-	// 			var parseUrl = url.parse(req.url);
-	// 			parseUrl = parseUrl.pathname.split('/');
-	// 			// debug(parseUrl,parseUrl[1], sess);
-	// 			if( parseUrl[1] === sess.user.userid ){
-	// 				debug("proxy to project");
-	// 				// proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
-	// 			};
-	// 		});
-	// 	}
-	// };
-	debug("proxy to site", "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port);
-
-	proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
-});
-
-// server.listen(process.env.PROXY_PORT || 8082);
-
-
 
 http.createServer(app).listen(app.get('port'), app.get('host'), function () {
 	debug("App server start on port:[" + app.get('port') + "], host:[" + app.get('host') + "]");
