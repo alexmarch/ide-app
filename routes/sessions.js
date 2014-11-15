@@ -53,14 +53,16 @@
 			req.session.destroy();
 			return res.redirect('/');
 		},
-		"new": function (req, res) {
+		new: function (req, res) {
 			return db.q("select * from users where userid = ? limit 1", [req.body.email]).then(function (user) {
 				if (user && user.length > 0) {
 					return has_secure_password(req.body.password, user[0].salt).then(function (pwd) {
 						if (user[0].password === pwd.hash_key && user[0].active === 1) {
 							return req.session.regenerate(function (err) {
+								delete user[0].password;
 								req.session.uid = user[0].id;
 								req.session.sid = cookie.parse(req.headers.cookie)['connect.sid'];
+								req.session.user = user[0];
 								return res.redirect("/");
 							});
 						} else {

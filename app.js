@@ -3,7 +3,8 @@ var db = require('./config/db');
 var http = require('http');
 var path = require('path');
 var app = express();
-var helpers = require('./helpers/helpers');
+
+var helpers = require('./api/helpers/helpers');
 var handler = require('./routes/handle');
 var appRoutes = require('./config/routes')(app, handler);
 var debug = require('debug')('app');
@@ -17,7 +18,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.HOST || 'localhost');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-// app.set('proxy', proxy);
+app.set('proxy', proxy);
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
