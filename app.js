@@ -7,7 +7,7 @@ var url = require('url');
 var cookie = require('cookie');
 var helpers = require('./api/helpers/helpers');
 var handler = require('./routes/handle');
-
+var proxy = require('express-http-proxy');
 var appRoutes = require('./config/routes')(app, handler);
 
 var debug = require('debug')('app');
@@ -74,6 +74,11 @@ app.use(helpers(app));
 // 			console.log(err);
 // 		});
 // });
+app.use('/test/project', proxy('http://192.163.201.155:3131', {
+  forwardPath: function(req, res) {
+    return require('url').parse(req.url).path;
+  }
+}));
 app.use(app.router);
 
 app.use(function (req, res, next) {
@@ -126,7 +131,9 @@ var server = http.createServer(function(req, res){
 	proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
 });
 
-server.listen(process.env.PROXY_PORT || 8082);
+// server.listen(process.env.PROXY_PORT || 8082);
+
+
 
 http.createServer(app).listen(app.get('port'), app.get('host'), function () {
 	debug("App server start on port:[" + app.get('port') + "], host:[" + app.get('host') + "]");
