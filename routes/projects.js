@@ -28,7 +28,7 @@ exports.projects = {
 			console.log(err);
 		});
 		
-		next();
+		// next();
 		// if(req.session.ide || fs.readdirSync(path).length >= 3){
 		// 	return res.redirect('/ide/?p='+req.session.port);
 		// }
