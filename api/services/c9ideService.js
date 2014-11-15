@@ -16,7 +16,7 @@ c9ideService.prototype = {
 			cb(data);
 		});
 		c9ide.stderr.on('data', function(data) {
-			debug('Error',data);
+			debug('Error',data.toString());
 		});
 	}
 }
