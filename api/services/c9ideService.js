@@ -17,7 +17,7 @@ c9ideService.prototype = {
 		});
 		c9ide.stderr.on('data', function(data) {
 			debug('Error',data);
-		};
+		});
 	}
 }
 module.exports = c9ideService;
