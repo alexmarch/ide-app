@@ -7,13 +7,15 @@ var helpers = require('./helpers/helpers');
 var handler = require('./routes/handle');
 var appRoutes = require('./config/routes')(app, handler);
 //var MongoStore = require('connect-mongo')(express);
-var MySQLStore = require('connect-mysql')(express);
-
+var MySQLStore = require('connect-mysql')(express),
+ProxyService = require('api/services/proxyService'),
+proxy = new ProxyService(process.env.PROXY_PORT);
 
 app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.HOST || 'localhost')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.set('proxy', proxy);
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -51,5 +53,5 @@ if ('development' == app.get('env')) {
 db.init();
 
 http.createServer(app).listen(app.get('port'), app.get('host'), function () {
-	console.log("Run on :", new Date(), "HOST:", app.get("host"), "PORT:", app.get("port"));
+	
 });
