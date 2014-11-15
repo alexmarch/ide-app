@@ -3,6 +3,7 @@ var db = require('./config/db');
 var http = require('http');
 var path = require('path');
 var app = express();
+var url = require('url');
 
 var helpers = require('./api/helpers/helpers');
 var handler = require('./routes/handle');
@@ -88,7 +89,7 @@ if ('development' == app.get('env')) {
 db.init();
 
 var server = http.createServer(function(req, res){
-	debug("Server with proxy start", req, res);
+	debug("Server with proxy start", url.parse(req.url));
 	proxyService.proxy.web(req, res, options);
 });
 server.listen(process.env.PROXY_PORT || 8082);
