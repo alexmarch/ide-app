@@ -12,7 +12,7 @@ var appRoutes = require('./config/routes')(app, handler);
 
 var debug = require('debug')('app');
 //var MongoStore = require('connect-mongo')(express);
-var MySQLStore = require('connect-mysql')(express),
+var MySQLStore = require('connect-mysql')(express);
 var sessionStore = new MySQLStore({config: db.dev}),
 ProxyService = require('./api/services/proxyService'),
 options = require('./config/proxy'),
