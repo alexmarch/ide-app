@@ -76,7 +76,7 @@ app.use(helpers(app));
 // });
 app.use('/static', proxy('http://192.163.201.155:3131', {
   forwardPath: function(req, res) {
-  	console.log("Path:",require('url').parse(req.url));
+  	console.log("Path:", req);
     return '/static' + require('url').parse(req.url).path;
   }
 }));
