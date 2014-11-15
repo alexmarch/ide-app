@@ -37,8 +37,9 @@ app.use(express.session({
 }));
 
 app.use(require('./api/helpers/current_user_helper'));
-app.use(app.router);
 app.use(helpers(app));
+app.use(app.router);
+
 
 
 console.log(require('./api/helpers/current_user_helper'));

@@ -7,7 +7,7 @@ block content
     header.dashboard
         .headr_inr_dash
             img.inner-logo(src='images/qlc-logo.png', alt='')
-            h1 Noamay.com #{user.userid}
+            h1 Noamay.com
             .inner-topright
                 p.datesec
                     span 10:00 am
@@ -61,13 +61,13 @@ block content
                     a(href='#')
                         span Setting
                 li.enroli
-                    a(href='/project')
+                    a(href='#{user.userid}/project')
                         span Code Editor
         .dash-middle-pan
             .avtt
                 img(src='images/avater.png', width='70', height='69', alt='')
                 | Hello!
-                span.nam UserName
+                span.nam #{user.userid}
                 br
                 | Director,
                 br
