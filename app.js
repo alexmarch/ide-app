@@ -88,8 +88,8 @@ if ('development' == app.get('env')) {
 db.init();
 
 var server = http.createServer(function(req, res){
-	debug("Server with proxy start");
-	proxyService.web(req, res, options);
+	debug("Server with proxy start", req, res);
+	proxyService.proxy.web(req, res, options);
 });
 server.listen(process.env.PROXY_PORT || 8082);
 
