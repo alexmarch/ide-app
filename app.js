@@ -26,6 +26,8 @@ proxyService, c9ideService;
 // c9ideService.run(function(data){
 // 		debug('Running c9ide...',data.toString());
 // });
+var httpProxy = require('http-proxy');
+var wsProxy = httpProxy.createProxyServer({ ws: true });
 
 app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.APP_HOST || '192.163.201.155');
@@ -76,9 +78,14 @@ app.use(helpers(app));
 // });
 debug('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port);
 
+app.get('/smith.io-ide', proxy('ws://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
+  forwardPath: function(req, res) {
+    return req.originalUrl;
+  }
+}));
+
 app.use('/smith.io-ide', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
-  	debug(req.originalUrl, req.query);
     return req.originalUrl;
   }
 }));
