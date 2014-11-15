@@ -1,0 +1,14 @@
+extends layout
+block content
+    //Header section
+    header.dashboard
+        .headr_inr_dash
+            img.inner-logo(src='images/qlc-logo.png', alt='')
+            h1 Noamay.com
+    //
+      Header section end
+    //
+      body section
+    h1(style="text-align:center; font-size:40px; font-weight: bold;padding: 13px;") Page not found
+    if url
+        p(style="text-align:center; padding:4px; color:#8F8F8F")=url
