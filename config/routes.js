@@ -1,21 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = function (app, handle) {
 	this._app = app;
 	this._handle = handle;
@@ -36,7 +18,10 @@ module.exports = function (app, handle) {
 		_app.post('/forgot_form', handle.forgot.forgot_form);
 		_app.get('/forgot/:query/:hash', handle.forgot.reset);
 		_app.get('/editor', handle.projects.editor);
-		_app.get('/cide', handle.projects.dashboard);
+
+		//Run code editor with project
+		_app.get('/project', handle.projects.dashboard);
+		
 		_app.post('/passwordreset', handle.forgot.new);
 
 		return _app
