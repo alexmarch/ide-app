@@ -4,7 +4,7 @@ var http = require('http');
 var path = require('path');
 var app = express();
 var url = require('url');
-
+var cookie = require('cookie');
 var helpers = require('./api/helpers/helpers');
 var handler = require('./routes/handle');
 
@@ -13,7 +13,7 @@ var appRoutes = require('./config/routes')(app, handler);
 var debug = require('debug')('app');
 //var MongoStore = require('connect-mongo')(express);
 var MySQLStore = require('connect-mysql')(express),
-
+var sessionStore = new MySQLStore({config: db.dev}),
 ProxyService = require('./api/services/proxyService'),
 options = require('./config/proxy'),
 proxyService = new ProxyService({},{port: process.env.PROXY_PORT});
@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.session({
 	key: 'connect.sid',
 	secret: 'v1234',
-	store: new MySQLStore({config: db.dev}),
+	store: sessionStore,
 	proxy: true
 }));
 
@@ -88,8 +88,25 @@ if ('development' == app.get('env')) {
 
 db.init();
 
+/**
+* Create reverse proxy
+**/
 var server = http.createServer(function(req, res){
-	debug("url:",req.url,"parse:",url.parse(req.url));
+	debug("url:",req.url,"parse:",url.parse(req.url),req.headers.cookie);
+	var cookies, sid;
+	if(req.headers.cookie){
+		cookies = cookie.parse(req.headers.cookie);
+		sid = cookies['connect.sid'];
+		if(sid){
+			sid = sid.substr(2).split('.')[0];
+			sessionStore.get(sid, function(err, sess){
+				if(err){
+					return debug("Get session error", err);
+				};
+				debug(sess);
+			});
+		}
+	};
 	proxyService.proxy.web(req, res, options);
 });
 
