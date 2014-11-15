@@ -92,7 +92,7 @@ db.init();
 * Create reverse proxy
 **/
 var server = http.createServer(function(req, res){
-	debug("parse:",);
+	// debug("parse:",);
 	var cookies, sid;
 	if(req.headers.cookie){
 		cookies = cookie.parse(req.headers.cookie);
