@@ -4,7 +4,8 @@ var spawn = require('child_process').spawn,
 	config = require('../config/global'),
 	debug = require('debug')('project'),
 	fs = require('fs'),
-	path = '/../pids/';
+	path = '/../pids/',
+	proxyService;
 
 exports.projects = {
 	editor: function (req, res, next) {
@@ -13,13 +14,13 @@ exports.projects = {
 			return res.redirect('/');
 		};
 
-		debug("Run editor...");
+		debug("Run editor...", req.app.get('proxyService'));
 
-		var proxy = req.app.get('proxy');
+		proxyService = req.app.get('proxyService');
 
-		proxy.web(req, res, { target: "http://192.163.201.155:3131" });
+		proxyService.proxy.web(req, res, { target: "http://192.163.201.155:3131" });
 		
-		proxy.on('error', function(err){
+		proxyService.proxy.on('error', function(err){
 			console.log(err);
 		});
 		

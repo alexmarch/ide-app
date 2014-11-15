@@ -14,13 +14,13 @@ var debug = require('debug')('app');
 var MySQLStore = require('connect-mysql')(express),
 ProxyService = require('./api/services/proxyService'),
 options = require('./config/proxy'),
-proxy = new ProxyService(options,{port: process.env.PROXY_PORT});
+proxyService = new ProxyService(options,{port: process.env.PROXY_PORT});
 
 app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.HOST || 'localhost');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('proxy', proxy);
+app.set('proxyService', proxyService);
 
 
 app.use(express.favicon());
