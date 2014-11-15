@@ -16,7 +16,7 @@ var MySQLStore = require('connect-mysql')(express);
 var sessionStore = new MySQLStore({config: db.dev}),
 ProxyService = require('./api/services/proxyService'),
 options = require('./config/proxy'),
-proxyService = new ProxyService({},{port: process.env.PROXY_PORT});
+proxyService = new ProxyService({},{port: process.env.PROXY_PORT}),
 
 c9ideOptions = require('./config/c9ide'),
 C9ideService = require('./api/services/c9ideService'), 
