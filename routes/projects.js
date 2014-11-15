@@ -1,11 +1,9 @@
 'use strict';
 
-var spawn = require('child_process').spawn,
-	config = require('../config/global'),
-	debug = require('debug')('project'),
-	fs = require('fs'),
-	path = '/../pids/',
-	proxyService;
+var	debug = require('debug')('project'),
+c9ideOptions = require('../config/c9ide'),
+C9ideService = require('../api/services/c9ideService'), 
+proxyService, c9ideService;
 
 exports.projects = {
 	editor: function (req, res, next) {
@@ -16,13 +14,19 @@ exports.projects = {
 
 		debug("Run editor...", req.app.get('proxyService'));
 
-		proxyService = req.app.get('proxyService');
+		c9ideService = new C9ideService(c9ideOptions);
 
-		proxyService.proxy.web(req, res, { target: "http://192.163.201.155:3131" });
-		
-		proxyService.proxy.on('error', function(err){
-			console.log(err);
+		c9ideService.run(function(data){
+			debug('Running c9ide...',data);
 		});
+
+		// proxyService = req.app.get('proxyService');
+
+		// proxyService.proxy.web(req, res, { target: "http://192.163.201.155:3131" });
+		
+		// proxyService.proxy.on('error', function(err){
+		// 	console.log(err);
+		// });
 		
 		next();
 		// if(req.session.ide || fs.readdirSync(path).length >= 3){
@@ -53,20 +57,20 @@ exports.projects = {
 		// });
 	},
 	dashboard: function(req, res){
-		var rndPort = 3131;//Math.floor((Math.random(new Date().getTime()) * 9000) + 1000);
-		if(req.session.ide || fs.readdirSync(require("path").normalize(__dirname+path)).length>0){
-			//res.redirect('/ide/?p='+rndPort);
-		}else{
-		var c9ide = spawn(config.c9path, ['-l', '127.0.0.1', '-p', rndPort, '-w', '/home/naomay/git/project/']);
-		req.session.ide = c9ide.pid;
-		req.session.port = rndPort;
-		fs.writeFileSync(require("path").normalize(__dirname+path)+c9ide.pid+'.pid',rndPort);
-			c9ide.stdout.on('data', function (data) {
-				console.log(data.toString());
-				if( data.toString().indexOf('initialized.') !== -1){
-					//res.redirect('/ide/?p='+rndPort);
-				}
-			});
-		}
+		// var rndPort = 3131;//Math.floor((Math.random(new Date().getTime()) * 9000) + 1000);
+		// if(req.session.ide || fs.readdirSync(require("path").normalize(__dirname+path)).length>0){
+		// 	//res.redirect('/ide/?p='+rndPort);
+		// }else{
+		// var c9ide = spawn(config.c9path, ['-l', '127.0.0.1', '-p', rndPort, '-w', '/home/naomay/git/project/']);
+		// req.session.ide = c9ide.pid;
+		// req.session.port = rndPort;
+		// fs.writeFileSync(require("path").normalize(__dirname+path)+c9ide.pid+'.pid',rndPort);
+		// 	c9ide.stdout.on('data', function (data) {
+		// 		console.log(data.toString());
+		// 		if( data.toString().indexOf('initialized.') !== -1){
+		// 			//res.redirect('/ide/?p='+rndPort);
+		// 		}
+		// 	});
+		// }
 	}
 }
