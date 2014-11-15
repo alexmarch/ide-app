@@ -8,7 +8,7 @@ module.export = function ProxyService(opt){
 	this.proxy.on("error", this.error);
 };
 
-proxyService.prototype = {
+ProxyService.prototype = {
 	error: function(err, req, res){
 		debug("Proxy error:", err);
 	}
