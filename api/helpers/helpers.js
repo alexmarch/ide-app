@@ -4,6 +4,7 @@
 
   helpers = function(app) {
     return function(req, res, next) {
+      console.log("is_auth_user");
       app.locals.is_auth_user = function() {
         return true;
       };
