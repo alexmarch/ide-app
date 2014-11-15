@@ -2,6 +2,7 @@
    Created by mas_bk on 4/5/14.
 extends layout
 block content
+    #{user}
     //Header section
     header.dashboard
         .headr_inr_dash
@@ -60,7 +61,7 @@ block content
                     a(href='#')
                         span Setting
                 li.enroli
-                    a(href='#{user.userid}/project')
+                    a(href='/project')
                         span Code Editor
         .dash-middle-pan
             .avtt
