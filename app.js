@@ -6,6 +6,7 @@ var app = express();
 var helpers = require('./helpers/helpers');
 var handler = require('./routes/handle');
 var appRoutes = require('./config/routes')(app, handler);
+var debug = require('debug')('app');
 //var MongoStore = require('connect-mongo')(express);
 var MySQLStore = require('connect-mysql')(express),
 ProxyService = require('api/services/proxyService'),
@@ -53,5 +54,5 @@ if ('development' == app.get('env')) {
 db.init();
 
 http.createServer(app).listen(app.get('port'), app.get('host'), function () {
-	
+	debug("App server start on port:[" + app.get('port') + " ], host:[" + app.get('host') + "]");
 });
