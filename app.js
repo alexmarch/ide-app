@@ -114,7 +114,7 @@ var server = http.createServer(function(req, res){
 				var parseUrl = url.parse(req.url);
 				parseUrl = parseUrl.pathname.split('/');
 				// debug(parseUrl,parseUrl[1], sess);
-				if( parseUrl[1] === sess.userid ){
+				if( parseUrl[1] === sess.user.userid ){
 					debug("proxy to project");
 					proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
 				};
