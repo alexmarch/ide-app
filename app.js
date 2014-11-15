@@ -28,7 +28,7 @@ proxyService, c9ideService;
 // });
 
 app.set('port', process.env.PORT || 3000);
-app.set('host', process.env.APP_HOST || 'localhost');
+app.set('host', process.env.APP_HOST || '192.163.201.155');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('proxyService', proxyService);
