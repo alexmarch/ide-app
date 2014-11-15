@@ -9,7 +9,7 @@ var appRoutes = require('./config/routes')(app, handler);
 var debug = require('debug')('app');
 //var MongoStore = require('connect-mongo')(express);
 var MySQLStore = require('connect-mysql')(express),
-ProxyService = require('./api/services/proxyService'),
+ProxyService = require('./api/services/proxyService');
 //proxy = new ProxyService({port: process.env.PROXY_PORT});
 
 app.set('port', process.env.PORT || 3000);
