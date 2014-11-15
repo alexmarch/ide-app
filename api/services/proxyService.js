@@ -1,7 +1,6 @@
 var options = require('../../config/proxy.js'),
 debug = require('debug')('proxy'),
-httpProxy = require('http-proxy'),
-proxyConfig = require('./config/proxy.js');
+httpProxy = require('http-proxy');
 
 module.exports = function ProxyService(opt){
 	this.proxy = httpProxy.createProxyServer(proxyConfig).listen(opt.port);
