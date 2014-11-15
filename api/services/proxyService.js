@@ -2,8 +2,9 @@ var options = require('../../config/proxy.js'),
 debug = require('debug')('proxy'),
 httpProxy = require('http-proxy');
 
-module.exports = function ProxyService(opt){
-	this.proxy = httpProxy.createProxyServer(proxyConfig).listen(opt.port);
+function ProxyService(opt){
+	opt = opt || {};
+	this.proxy = httpProxy.createProxyServer(options).listen(opt.port || 8080);
 	this.proxy.on("error", this.error);
 };
 
@@ -12,3 +13,5 @@ ProxyService.prototype = {
 		debug("Proxy error:", err);
 	}
 }
+
+module.exports = ProxyService;
