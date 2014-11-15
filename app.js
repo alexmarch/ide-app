@@ -22,10 +22,10 @@ c9ideOptions = require('./config/c9ide'),
 C9ideService = require('./api/services/c9ideService'), 
 proxyService, c9ideService;
 
-c9ideService = new C9ideService(c9ideOptions);
-c9ideService.run(function(data){
-		debug('Running c9ide...',data.toString());
-});
+// c9ideService = new C9ideService(c9ideOptions);
+// c9ideService.run(function(data){
+// 		debug('Running c9ide...',data.toString());
+// });
 
 app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.APP_HOST || 'localhost');
@@ -98,31 +98,31 @@ db.init();
 **/
 var server = http.createServer(function(req, res){
 	// debug("parse:", req.headers.cookie);
-	var cookies, sid;
-	if(req.headers.cookie){
-		cookies = cookie.parse(req.headers.cookie);
-		sid = cookies['connect.sid'];
-		// debug(sid);
-		if(sid){
-			sid = sid.substr(2).split('.')[0];
-			debug(sid);
-			sessionStore.get(sid, function(err, sess){
-				debug("Session:", sess.user.userid);
-				if(err){
-					return debug("Get session error", err);
-				};
-				var parseUrl = url.parse(req.url);
-				parseUrl = parseUrl.pathname.split('/');
-				// debug(parseUrl,parseUrl[1], sess);
-				if( parseUrl[1] === sess.user.userid ){
-					debug("proxy to project");
-					proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
-				};
-			});
-		}
-	};
-	debug("proxy to site");
-	proxyService.proxy.web(req, res, options);
+	// var cookies, sid;
+	// if(req.headers.cookie){
+	// 	cookies = cookie.parse(req.headers.cookie);
+	// 	sid = cookies['connect.sid'];
+	// 	// debug(sid);
+	// 	if(sid){
+	// 		sid = sid.substr(2).split('.')[0];
+	// 		debug(sid);
+	// 		sessionStore.get(sid, function(err, sess){
+	// 			debug("Session:", sess.user.userid);
+	// 			if(err){
+	// 				return debug("Get session error", err);
+	// 			};
+	// 			var parseUrl = url.parse(req.url);
+	// 			parseUrl = parseUrl.pathname.split('/');
+	// 			// debug(parseUrl,parseUrl[1], sess);
+	// 			if( parseUrl[1] === sess.user.userid ){
+	// 				debug("proxy to project");
+	// 				// proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
+	// 			};
+	// 		});
+	// 	}
+	// };
+	// debug("proxy to site");
+	proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
 });
 
 server.listen(process.env.PROXY_PORT || 8082);
