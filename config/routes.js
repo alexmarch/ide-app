@@ -17,7 +17,8 @@ module.exports = function (app, handle) {
 		_app.get('/forgot', handle.forgot.forgot);
 		_app.post('/forgot_form', handle.forgot.forgot_form);
 		_app.get('/forgot/:query/:hash', handle.forgot.reset);
-		_app.get('/editor', handle.projects.editor);
+		// _app.get('/editor', handle.projects.editor);
+		_app.get('/:userid/:project', handle.projects.editor);
 
 		//Run code editor with project
 		_app.get('/project', handle.projects.dashboard);

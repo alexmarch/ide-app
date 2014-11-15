@@ -6,7 +6,9 @@ var app = express();
 
 var helpers = require('./api/helpers/helpers');
 var handler = require('./routes/handle');
+
 var appRoutes = require('./config/routes')(app, handler);
+
 var debug = require('debug')('app');
 //var MongoStore = require('connect-mongo')(express);
 var MySQLStore = require('connect-mysql')(express),
@@ -39,10 +41,6 @@ app.use(express.session({
 app.use(require('./api/helpers/current_user_helper'));
 app.use(helpers(app));
 app.use(app.router);
-
-
-
-console.log(require('./api/helpers/current_user_helper'));
 
 app.use(function (req, res, next) {
 	res.status(404)
