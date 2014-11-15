@@ -92,15 +92,15 @@ db.init();
 * Create reverse proxy
 **/
 var server = http.createServer(function(req, res){
-	// debug("url:",req.url,"parse:",url.parse(req.url),req.headers.cookie);
+	debug("parse:",url.parse(req.url));
 	var cookies, sid;
 	if(req.headers.cookie){
 		cookies = cookie.parse(req.headers.cookie);
 		sid = cookies['connect.sid'];
-		debug(sid);
+		// debug(sid);
 		if(sid){
 			sid = sid.substr(2).split('.')[0];
-			debug(sid);
+			// debug(sid);
 			sessionStore.get(sid, function(err, sess){
 				if(err){
 					return debug("Get session error", err);
