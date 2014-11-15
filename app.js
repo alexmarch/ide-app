@@ -121,7 +121,8 @@ var server = http.createServer(function(req, res){
 	// 		});
 	// 	}
 	// };
-	// debug("proxy to site");
+	debug("proxy to site", "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port);
+
 	proxyService.proxy.web(req, res, { target: "http://" + c9ideOptions.ide_ip + ":" + c9ideOptions.ide_port });
 });
 
