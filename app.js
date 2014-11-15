@@ -74,6 +74,11 @@ app.use(helpers(app));
 // 			console.log(err);
 // 		});
 // });
+app.use('/static', proxy('http://192.163.201.155:3131', {
+  forwardPath: function(req, res) {
+    return require('url').parse(req.url).path;
+  }
+}));
 app.use('/test/project', proxy('http://192.163.201.155:3131', {
   forwardPath: function(req, res) {
     return require('url').parse(req.url).path;
