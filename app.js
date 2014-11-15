@@ -76,13 +76,13 @@ app.use(helpers(app));
 // });
 app.use('/static', proxy('http://192.163.201.155:3131', {
   forwardPath: function(req, res) {
-  	console.log(require('url').parse(req.url).path, require('url').parse(req.url));
+  	console.log("Path:",require('url').parse(req.url).path);
     return require('url').parse(req.url).path;
   }
 }));
 app.use('/test/project', proxy('http://192.163.201.155:3131', {
   forwardPath: function(req, res) {
-  	console.log(require('url').parse(req.url).path);
+  	console.log("Project Path:",require('url').parse(req.url).path);
     return require('url').parse(req.url).path;
   }
 }));
