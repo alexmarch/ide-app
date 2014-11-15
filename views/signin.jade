@@ -28,7 +28,7 @@ block content
 						p
 							a.btn.forgot(href='/forgot') Forgot your password
 					include messages
-					form#log_frm(action='/signin', method='post')
+					form#log_frm(action='/signin', method='post', novalidate)
 						label Username (required!)
 						input(name='email', type='email', value='')
 						label Password (required!)
