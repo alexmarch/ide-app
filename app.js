@@ -74,6 +74,7 @@ app.use(helpers(app));
 // 			console.log(err);
 // 		});
 // });
+debug('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port);
 
 app.use('/static', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
