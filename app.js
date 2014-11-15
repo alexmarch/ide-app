@@ -74,15 +74,9 @@ app.use(helpers(app));
 // 			console.log(err);
 // 		});
 // });
-app.use('/static/*', proxy('http://192.163.201.155:3131', {
-  forwardPath: function(req, res) {
-  	console.log("Path *:",require('url').parse(req.url).path);
-    return require('url').parse(req.url).path;
-  }
-}));
 app.use('/static', proxy('http://192.163.201.155:3131', {
   forwardPath: function(req, res) {
-  	console.log("Path:",require('url').parse(req.url).path);
+  	console.log("Path:",require('url').parse(req.url));
     return '/static' + require('url').parse(req.url).path;
   }
 }));
