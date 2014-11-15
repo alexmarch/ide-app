@@ -20,7 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('proxy', proxy);
 
-app.use(require('./api/helpers/current_user_helper'));
+
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -37,7 +37,9 @@ app.use(express.session({
 }));
 
 app.use(app.router);
+app.use(require('./api/helpers/current_user_helper'));
 app.use(helpers(app));
+
 
 console.log(require('./api/helpers/current_user_helper'));
 
