@@ -36,8 +36,8 @@ app.use(express.session({
 	proxy: true
 }));
 
-app.use(app.router);
 app.use(require('./api/helpers/current_user_helper'));
+app.use(app.router);
 app.use(helpers(app));
 
 
