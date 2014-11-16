@@ -85,11 +85,13 @@ app.use('/workspace', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptio
   }
 }));
 
-app.use('/smith.io-ide', function(req, res, next){
-	debug("/smith.io-ide !!!");
-	wsProxy.ws(req);
-	next();
-});
+app.get('/smith.io-ide', fproxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
+  forwardPath: function(req, res) {
+  	debug("/smith.io-ide", req.originalUrl);
+    return req.originalUrl;
+  }
+}));
+
 app.use('/static', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
     return req.originalUrl
