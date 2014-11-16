@@ -78,7 +78,7 @@ app.use(helpers(app));
 // });
 debug('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port);
 
-app.get('/smith.io-ide', proxy('ws://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
+app.get('/workspace', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
     return req.originalUrl;
   }
