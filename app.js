@@ -27,7 +27,7 @@ proxyService, c9ideService;
 // 		debug('Running c9ide...',data.toString());
 // });
 var httpProxy = require('http-proxy');
-var wsProxy = httpProxy.createProxyServer({ ws: true });
+var wsProxy = httpProxy.createProxyServer({ target: 'ws://127.0.0.1:3131', ws: true });
 
 app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.APP_HOST || '192.163.201.155');
@@ -84,11 +84,9 @@ app.get('/workspace', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptio
   }
 }));
 
-app.use('/smith.io-ide', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
-  forwardPath: function(req, res) {
-    return req.originalUrl;
-  }
-}));
+// app.use('/smith.io-ide', function(req, res, next){
+// 	wsProxy.ws(req, socket, head);
+// });
 app.use('/static', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
     return req.originalUrl
@@ -119,6 +117,11 @@ if ('development' == app.get('env')) {
 
 db.init();
 
-http.createServer(app).listen(app.get('port'), app.get('host'), function () {
+var server = http.createServer(app);
+server.listen(app.get('port'), app.get('host'), function () {
 	debug("App server start on port:[" + app.get('port') + "], host:[" + app.get('host') + "]");
+});
+server.on('upgrade', function (req, socket, head) {
+	console.log("upgrade");
+  wsProxy.ws(req, socket, head);
 });
