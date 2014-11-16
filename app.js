@@ -76,18 +76,15 @@ app.use(helpers(app));
 // 			console.log(err);
 // 		});
 // });
-debug('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port);
 
 app.use('/api', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
-  	debug("/smith.io-ide", req.originalUrl);
     return req.originalUrl;
   }
 }));
 
 app.use('/workspace', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
-  	debug("/smith.io-ide", req.originalUrl);
     return req.originalUrl;
   }
 }));
@@ -104,6 +101,7 @@ app.use('/static', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.
     return req.originalUrl
   }
 }));
+
 app.use('/test/project', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
     return require('url').parse(req.url).path;
