@@ -78,15 +78,18 @@ app.use(helpers(app));
 // });
 debug('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port);
 
-app.get('/workspace', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
+app.use('/workspace', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
+  	debug("/smith.io-ide", req.originalUrl);
     return req.originalUrl;
   }
 }));
 
-// app.use('/smith.io-ide', function(req, res, next){
-// 	wsProxy.ws(req, socket, head);
-// });
+app.use('/smith.io-ide', function(req, res, next){
+	debug("/smith.io-ide !!!");
+	wsProxy.ws(req);
+	next();
+});
 app.use('/static', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
     return req.originalUrl
