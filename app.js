@@ -85,7 +85,7 @@ app.use('/workspace', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptio
   }
 }));
 
-app.get('/smith.io-ide', fproxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
+app.get('/smith.io-ide', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
   	debug("/smith.io-ide", req.originalUrl);
     return req.originalUrl;
