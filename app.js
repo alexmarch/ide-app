@@ -93,7 +93,7 @@ app.use('/php/develop', function(req, res){
   proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
   forwardPath: function(req, res) {
     return req.originalUrl;
-  });
+  }});
 });
 
 app.use('/smith.io-ide', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptions.ide_port, {
