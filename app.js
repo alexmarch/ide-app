@@ -92,7 +92,7 @@ app.use('/workspace', proxy('http://' + c9ideOptions.ide_host + ':' + c9ideOptio
 app.use('/php/develop', proxy('http://localhost:8000', {
   forwardPath: function(req, res) {
     console.log(require('url').parse(req.url));
-    return require('url').parse(req.url).pathname;
+    return require('url').parse(req.url).path;
   }
 }));
 
