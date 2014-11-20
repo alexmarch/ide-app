@@ -1,3 +1,4 @@
 #!/bin/bash
 INDEX_FILE_PATH=$1/$2
-php -S localhost:8000 -t $1 2>/dev/null
+DOCUMENT_ROOT=$1/
+php -S localhost:8000 -t $DOCUMENT_ROOT 2>/dev/null
